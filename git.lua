@@ -1,7 +1,7 @@
 local git = "github.com/Astru43/atm6-scripts/raw/main"
 local pwd = shell.dir()
  
-if arg[1] == update then
+if arg[1] == "update" then
     address = "https://" .. fs.combine(git, "git.lua")
     local res = http.get(address)
     fs.delete("/git.lua")
