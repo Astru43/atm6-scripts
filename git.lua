@@ -7,7 +7,7 @@ if arg[1] == "update" then
     fs.delete("/git.lua")
     local file = fs.open("/git.lua", "w")
     file.write(res.readAll())
-    file.clsoe()
+    file.close()
 elseif http.checkURL("https://" .. fs.combine(git, arg[1])) then
     address = "https://" .. fs.combine(git, arg[1])
     print(address)
