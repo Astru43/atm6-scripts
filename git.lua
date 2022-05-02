@@ -1,3 +1,7 @@
+-- Git.lua v2
+-- Author: Astru43
+-- Date: 03/05/2022
+
 local git = "github.com/Astru43/atm6-scripts/raw/main"
 local pwd = shell.dir()
  
