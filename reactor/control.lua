@@ -15,8 +15,11 @@ while true do
         setState(true)
     end
 
-    peripheral.call("left", "setCursorPos", 2, 1)
     peripheral.call("left", "clear")
+    peripheral.call("left", "setCursorPos", 1, 1)
+    peripheral.call("left", "write", "control.lua v2")
+    
+    peripheral.call("left", "setCursorPos", 1, 2)
     peripheral.call("left", "write", stored)
     peripheral.call("left", "write", "/")
     peripheral.call("left", "write", capacity)
