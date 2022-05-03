@@ -1,9 +1,8 @@
--- control.lua v3
+-- control.lua v4
 -- Author: Astru43
 -- Date: 03/05/2022
-
 local reactor = peripheral.find("BiggerReactors_Reactor")
-local monitor = peripheral.find("monitor")[0]
+local monitor = peripheral.find("monitor")
 local reactor_battery = reactor.battery()
 local capacity = reactor_battery.capacity()
 
@@ -12,7 +11,7 @@ peripheral.call("left", "setTextScale", 0.5)
 function main()
     while true do
         stored = reactor_battery.stored()
-        if capacity * 0 * 98 < stored then
+        if capacity * 0.9998 < stored then
             setState(false)
         elseif capacity * 0.75 > stored then
             setState(true)
@@ -36,18 +35,14 @@ function title()
 end
 
 function info(stored)
-    peripheral.call("left", "setCursorPos", 1, 2)
-    peripheral.call("left", "write", stored)
-    peripheral.call("left", "write", "/")
-    peripheral.call("left", "write", capacity)
-    peripheral.call("left", "write", " : ")
     fullness = stored / capacity * 100
-    peripheral.call("left", "write", tonumber(string.format("%.3f", fullness)))
-    peripheral.call("left", "write", "%")
+    monitor.setCursorPos(1, 2)
+    monitor.write(stored .. "/" .. capacity .. " : ")
+    monitor.write(tonumber(string.format("%.3f", fullness)) .. "%")
 end
 
 function clear()
-    peripheral.call("left", "clear")
+    monitor.clear()
 end
 
 main()
