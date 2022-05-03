@@ -95,27 +95,34 @@ function capacity_format(stored, capacity)
 
     for _, v in ipairs(steps) do
         if v[1] <= capacity+1 then
-            steps.use = _
+            steps.use_capacity = _
+        end
+        if v[1] <= stored+1 then
+            steps.use_stored = _
         end
     end
 
-    local stored_res = string.format("%.2f", stored / steps[steps.use][1])
-    if tonumber(stored_res) >= 1e3 and steps.use < table.getn(steps) then --Check if value is unde 1000 and if step.use is not max
-        steps.use = steps.use + 1
+    local stored_res = string.format("%.2f", stored / steps[steps.use_stored][1])
+
+    --Check if value is unde 1000 and if step.use is not max
+    if tonumber(stored_res) >= 1e3 and steps.use_stored < table.getn(steps) then
+        steps.use_stored = steps.use_stored + 1
         stored_res = string.format("%.2f", tonumber(stored_res) / 1e3)
     end
 
     
-    local capacity_res = string.format("%.2f", capacity / steps[steps.use][1])
-    if tonumber(capacity_res) >= 1e3 and steps.use < table.getn(steps) then --Check if value is unde 1000 and if step.use is not max
-        steps.use = steps.use + 1
+    local capacity_res = string.format("%.2f", capacity / steps[steps.use_capacity][1])
+
+    --Check if value is unde 1000 and if step.use is not max
+    if tonumber(capacity_res) >= 1e3 and steps.use_capacity < table.getn(steps) then
+        steps.use_capacity = steps.use_capacity + 1
         capacity_res = string.format("%.2f", tonumber(capacity_res) / 1e3)
     end
 
     stored_res = string.sub(stored_res, 0, string.sub(stored_res, -2) == "00" and -4 or -1)
     capacity_res = string.sub(capacity_res, 0, string.sub(capacity_res, -2) == "00" and -4 or -1)
 
-    return stored_res .. "/" .. capacity_res .. steps[steps.use][2]
+    return stored_res .. steps[steps.use_stored][2] .. "/" .. capacity_res .. steps[steps.use_capacity][2]
 end
 
 main()
