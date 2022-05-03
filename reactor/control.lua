@@ -1,4 +1,4 @@
--- control.lua v5
+-- control.lua v6
 -- Author: Astru43
 -- Date: 03/05/2022
 local reactor = peripheral.find("BiggerReactors_Reactor")
@@ -42,7 +42,7 @@ function main()
 end
 
 function title()
-    monitor.write("control.lua v5")
+    monitor.write("control.lua v6")
     newLine()
 end
 
@@ -84,8 +84,8 @@ function clear()
     monitor.setCursorPos(1, 1)
 end
 
-function capacity_format(sored, capacity)
-    local setps = {
+function capacity_format(stored, capacity)
+    local steps = {
         {1, ""},
         {1e3, "k"},
         {1e6, "M"},
@@ -93,27 +93,27 @@ function capacity_format(sored, capacity)
         {1e12, "T"},
     }
 
-    for _, v in ipairs(setps) do
+    for _, v in ipairs(steps) do
         if v[1] <= capacity+1 then
             steps.use = _
         end
     end
 
     local stored_res = string.format("%.2f", stored / steps[steps.use][1])
-    if tonumber(stored_res) >= 1e3 and steps.use < table.getn(steps) then
+    if tonumber(stored_res) >= 1e3 and steps.use < table.getn(steps) then --Check if value is unde 1000 and if step.use is not max
         steps.use = steps.use + 1
-        stored_res = string.format("%.1f", tonumber(stored_res) / 1e3)
+        stored_res = string.format("%.2f", tonumber(stored_res) / 1e3)
     end
 
     
     local capacity_res = string.format("%.2f", capacity / steps[steps.use][1])
-    if tonumber(capacity_res) >= 1e3 and steps.use < table.getn(steps) then
+    if tonumber(capacity_res) >= 1e3 and steps.use < table.getn(steps) then --Check if value is unde 1000 and if step.use is not max
         steps.use = steps.use + 1
-        capacity_res = string.format("%.1f", tonumber(capacity_res) / 1e3)
+        capacity_res = string.format("%.2f", tonumber(capacity_res) / 1e3)
     end
 
-    stored_res = string.sub(stored_res, 0, string.sub(stored_res, -1) == "0" and -3 or -1)
-    capacity_res = string.sub(capacity_res, 0, string.sub(capacity_res, -1) == "0" and -3 or -1)
+    stored_res = string.sub(stored_res, 0, string.sub(stored_res, -2) == "00" and -4 or -1)
+    capacity_res = string.sub(capacity_res, 0, string.sub(capacity_res, -2) == "00" and -4 or -1)
 
     return stored_res .. "/" .. capacity_res .. steps[steps.use][2]
 end
