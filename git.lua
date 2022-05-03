@@ -1,4 +1,4 @@
--- Git.lua v2
+-- git.lua v2
 -- Author: Astru43
 -- Date: 03/05/2022
 
