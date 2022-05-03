@@ -35,10 +35,16 @@ function title()
 end
 
 function info(stored)
-    fullness = stored / capacity * 100
+    local fuel = reactor.fuelTank()
+    local fullness = stored / capacity * 100
     monitor.setCursorPos(1, 2)
     monitor.write(stored .. "/" .. capacity .. " : ")
     monitor.write(tonumber(string.format("%.3f", fullness)) .. "%")
+
+    monitor.setCursorPos(1, 3)
+    local fuel_percent = tonumber(string.format("%.2f", fuel.fuel() / fuel.capacity() * 100))
+    monitor.write(fuel.fuel() .. "/" .. fuel.capacity() .. " : " .. fuel_percent)
+    monitor.write("Waste: " .. fuel.waste())
 end
 
 function clear()
