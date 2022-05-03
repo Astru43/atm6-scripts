@@ -2,8 +2,10 @@
 -- Author: Astru43
 -- Date: 03/05/2022
 
-reactor_battery = peripheral.call("back", "battery")
-capacity = reactor_battery.capacity()
+local reactor = peripheral.find("BiggerReactors_Reactor")
+local monitor = peripheral.find("monitor")[0]
+local reactor_battery = reactor.battery()
+local capacity = reactor_battery.capacity()
 
 peripheral.call("left", "setTextScale", 0.5)
 
@@ -25,12 +27,12 @@ function main()
 end
 
 function setState(state)
-    peripheral.call("back", "setActive", state)
+    reactor.setActive(state)
 end
 
 function title()
-    peripheral.call("left", "setCursorPos", 1, 1)
-    peripheral.call("left", "write", "control.lua v3")
+    monitor.setCursorPos(1, 1)
+    monitor.write("control.lua v4")
 end
 
 function info(stored)
