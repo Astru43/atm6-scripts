@@ -1,7 +1,8 @@
 -- control.lua v6
 -- Author: Astru43
 -- Date: 03/05/2022
-local reactor = peripheral.find("BiggerReactors_Reactor")
+local modem = peripheral.find("modem")
+local reactor = peripheral.find("BiggerReactors_Reactor") or peripheral.wrap(modem.getNamesRemote()[1])
 local monitor = peripheral.find("monitor")
 if (reactor == nil or monitor == nil) then
     error "Can't find reactor or dispaly."
