@@ -48,7 +48,7 @@ end
 
 function setActive(state)
     reactor.setActive(state)
-    turbine.setActive(false)
+    turbine.setActive(state)
 end
 
 function setCoil(engaged)
@@ -72,7 +72,7 @@ function info(stored_electricity)
     end
     newLine()
 
-    monitor.write("Battery: " .. capacity_format(stored_electricity, battery_capacity) .. " : " .. battery_percent ..
+    monitor.write("Battery: " .. capacityFormat(stored_electricity, battery_capacity) .. " : " .. battery_percent ..
                       "%")
     newLine()
 
@@ -80,12 +80,12 @@ function info(stored_electricity)
                       truncateOneDecimal(reactor.casingTemperature()))
     newLine()
 
-    monitor.write("Fuel: " .. capacity_format(fuel.fuel(), fuel.capacity()) .. " : " .. fuel_percent .. "%")
+    monitor.write("Fuel: " .. capacityFormat(fuel.fuel(), fuel.capacity()) .. " : " .. fuel_percent .. "%")
     newLine()
     monitor.write("Waste: " .. fuel.waste())
     newLine()
 
-    monitor.write("Rotor speed: " .. truncateOneDecimal(turbine.rotor.RPM()))
+    monitor.write("Rotor speed: " .. truncateOneDecimal(turbine.rotor().RPM()))
     newLine()
 
     monitor.write(format(battery.producedLastTick()) .. "FE")
@@ -110,7 +110,7 @@ function truncateOneDecimal(value)
 end
 
 function percentFormat(value)
-    tonumber(string.format("%.2f", value))
+    return tonumber(string.format("%.2f", value))
 end
 
 function capacityFormat(stored, capacity)
