@@ -15,9 +15,9 @@ function main()
     while true do
         local stored = battery.stored()
         if battery_capacity * 0.9998 < stored then
-            reactor.setActive(false)
+            setActive(false)
         elseif battery_capacity * 0.5 > stored then
-            reactor.setActive(true)
+            setActive(true)
         end
 
         if turbine.active() and turbine.rotor().RPM() > 1300 then
