@@ -22,7 +22,7 @@ function main()
 
         if turbine.active() and turbine.rotor().RPM() > 1300 then
             setCoil(true)
-        elseif not turbine.active() then
+        elseif not turbine.active() and turbine.rotor().RPM() < 100 then
             setCoil(false)
         end
 
